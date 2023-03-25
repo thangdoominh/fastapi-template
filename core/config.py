@@ -21,7 +21,7 @@ class Config(BaseSettings):
     db_schema: str = os.getenv('POSTGRES_SCHEMA')
     database_name: str = os.getenv("POSTGRES_DB")
     # url postgres
-    DB_URL: str = f"postgresql+asyncpg://{username}:{password}@{host}:{port}/{database_name}?search_path={db_schema}"
+    DB_URL: str = f"postgresql+asyncpg://{username}:{password}@{host}:{port}/{database_name}"
 
 
 class DevelopmentConfig(Config):
@@ -50,4 +50,4 @@ def get_config():
     return config_type[env]
 
 
-config = get_config()
+config: Config = get_config()

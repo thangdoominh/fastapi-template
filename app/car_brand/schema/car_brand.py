@@ -3,7 +3,13 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
-class CarBrandSchema(BaseModel):
+class CreateCarBrandRequestSchema(BaseModel):
+    name: str = Field(..., description="Name")
+    logo: str = Field(..., description="Logo")
+    description: str = Field(..., description="Description")
+
+
+class CreateCarBrandResponseSchema(BaseModel):
     id: int = Field(None, description="ID")
     name: str = Field(None, description="Name")
     logo: str = Field(None, description="Logo")

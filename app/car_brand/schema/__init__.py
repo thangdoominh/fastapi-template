@@ -1,5 +1,6 @@
-from .car_brand import CarBrandSchema
+from .car_brand import CreateCarBrandRequestSchema, CreateCarBrandResponseSchema
 
 __all__ = [
-    "CarBrandSchema",
+    "CreateCarBrandRequestSchema",
+    "CreateCarBrandResponseSchema"
 ]
