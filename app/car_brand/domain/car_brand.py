@@ -12,4 +12,5 @@ class CarBrand(Base, Timestamp):
     name = Column(Unicode(255), nullable=False, unique=True, index=True)
     logo = Column(String)
     description = Column(String)
-    car_models = relationship("CarModel", back_populates="car_brand")
+
+    # car_models = relationship("CarModel", back_populates="car_brand", nullable=True)

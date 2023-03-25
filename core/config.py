@@ -13,7 +13,6 @@ class Config(BaseSettings):
     DEBUG: bool = True
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
-    # TODO: update the url
     username: str = os.getenv("POSTGRES_USER")
     password: str = os.getenv("POSTGRES_PASSWORD")
     host: str = os.getenv("POSTGRES_HOST")
@@ -25,13 +24,10 @@ class Config(BaseSettings):
 
 
 class DevelopmentConfig(Config):
-    # DB_URL: str = f"mysql+aiomysql://root:fastapi@db:3306/fastapi"
     pass
 
 
 class LocalConfig(Config):
-    # TODO: update the url
-    # ENV = "local"
     pass
 
 
@@ -46,7 +42,6 @@ def get_config():
         "development": DevelopmentConfig(),
         "production": ProductionConfig(),
     }
-    print("test >>>", config_type[env])
     return config_type[env]
 
 

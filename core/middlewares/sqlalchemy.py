@@ -10,7 +10,6 @@ class SQLAlchemyMiddleware:
         self.app = app
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
-        print(">>> SQLAlchemyMiddleware")
         session_id = str(uuid4())
         context = set_session_context(session_id=session_id)
 

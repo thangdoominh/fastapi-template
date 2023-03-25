@@ -5,6 +5,7 @@ from sqlalchemy import select
 from app.car_brand.exception.car_brand import DuplicateCarBrandException
 from core.database import session
 from app.car_brand.domain import CarBrand
+from core.database.transactional import Transactional
 
 
 class CarBrandService:
@@ -20,9 +21,9 @@ class CarBrandService:
     async def get_car_brand(self, car_brand_id: int) -> Optional[CarBrand]:
         ...
 
+    @Transactional()
     async def create_car_brand(self, name: str, logo: str, description: str) -> None:
         query = select(CarBrand).where(CarBrand.name == name)
-        print(">>> query: ", query)
         result = await session.execute(query)
         is_exist = result.scalars().first()
         if is_exist:

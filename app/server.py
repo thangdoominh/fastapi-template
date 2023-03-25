@@ -1,22 +1,10 @@
-import os
-
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from core.config import config
-# from core.exceptions import CustomException
-# from core.fastapi.dependencies import Logging
-# from core.fastapi.middlewares import (
-#     SQLAlchemyMiddleware,
-#     AuthenticationMiddleware,
-#     AuthBackend,
-# )
 from api import router
 from api.health_check.health_check import health_check_router
-
-
-# from core.di import init_di
+from core.middlewares import SQLAlchemyMiddleware
 
 
 def init_cors(app: FastAPI) -> None:
@@ -35,37 +23,11 @@ def init_routers(app: FastAPI) -> None:
 
 
 def init_listeners(app: FastAPI) -> None:
-    # Exception handler
-    # @app.exception_handler(CustomException)
-    # async def custom_exception_handler(request: Request, exc: CustomException):
-    #     return JSONResponse(
-    #         status_code=exc.code,
-    #         content={"error_code": exc.error_code, "message": exc.message},
-    #     )
-    pass
-
-
-def on_auth_error(request: Request, exc: Exception):
-    status_code, error_code, message = 401, None, str(exc)
-    # if isinstance(exc, CustomException):
-    #     status_code = int(exc.code)
-    #     error_code = exc.error_code
-    #     message = exc.message
-
-    return JSONResponse(
-        status_code=status_code,
-        content={"error_code": error_code, "message": message},
-    )
+    ...
 
 
 def init_middleware(app: FastAPI) -> None:
-    # app.add_middleware(SQLAlchemyMiddleware)
-    # app.add_middleware(
-    #     AuthenticationMiddleware,
-    #     backend=AuthBackend(),
-    #     on_error=on_auth_error,
-    # )
-    pass
+    app.add_middleware(SQLAlchemyMiddleware)
 
 
 def create_app() -> FastAPI:
@@ -75,14 +37,12 @@ def create_app() -> FastAPI:
         version="1.0.0",
         docs_url=None if config.ENV == "production" else "/docs",
         redoc_url=None if config.ENV == "production" else "/redoc",
-        # dependencies=[Depends(Logging)],
     )
     init_routers(app=_app)
     init_cors(app=_app)
     init_listeners(app=_app)
     init_middleware(app=_app)
 
-    # init_di()
     return _app
 
 
