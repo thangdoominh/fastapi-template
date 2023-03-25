@@ -3,6 +3,18 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
+class CreateCarBrandRequestSchema(BaseModel):
+    name: str = Field(..., description="Name")
+    logo: str = Field(..., description="Logo")
+    description: str = Field(..., description="Description")
+
+
+class UpdateCarBrandRequestSchema(BaseModel):
+    name: str = Field(..., description="Name")
+    logo: str = Field(..., description="Logo")
+    description: str = Field(..., description="Description")
+
+
 class GetCarBrandListResponseSchema(BaseModel):
     id: int = Field(..., description="ID")
     name: str = Field(..., description="Name")
@@ -13,12 +25,6 @@ class GetCarBrandListResponseSchema(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-class CreateCarBrandRequestSchema(BaseModel):
-    name: str = Field(..., description="Name")
-    logo: str = Field(..., description="Logo")
-    description: str = Field(..., description="Description")
 
 
 class CreateCarBrandResponseSchema(BaseModel):

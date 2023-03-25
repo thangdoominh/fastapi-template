@@ -16,7 +16,9 @@ class CarBrandService:
         query = select(CarBrand)
 
         result = await session.execute(query)
-        return result.scalars().all()
+        brands: List[CarBrand] = result.scalars().all()
+        print('>>> here ', brands)
+        return brands
 
     async def get_car_brand(self, car_brand_id: int) -> Optional[CarBrand]:
         query = select(CarBrand).where(CarBrand.id == car_brand_id)
@@ -36,3 +38,25 @@ class CarBrandService:
 
         brand = CarBrand(name=name, logo=logo, description=description)
         session.add(brand)
+
+    @Transactional()
+    async def update_car_brand(self, car_brand_id: int, name: str, logo: str, description: str) -> None:
+        query = select(CarBrand).where(CarBrand.id == car_brand_id)
+        result = await session.execute(query)
+        brand: CarBrand = result.scalars().first()
+        if not brand:
+            raise CarBrandNotFoundException
+
+        brand.name = name
+        brand.logo = logo
+        brand.description = description
+
+    @Transactional()
+    async def delete_car_brand(self, car_brand_id: int) -> None:
+        query = select(CarBrand).where(CarBrand.id == car_brand_id)
+        result = await session.execute(query)
+        brand: CarBrand = result.scalars().first()
+        if not brand:
+            raise CarBrandNotFoundException
+
+        await session.delete(brand)
