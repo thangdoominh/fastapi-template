@@ -1,6 +1,5 @@
-from .car_brand import CreateCarBrandRequestSchema, CreateCarBrandResponseSchema
+from .car_brand import *
 
-__all__ = [
-    "CreateCarBrandRequestSchema",
-    "CreateCarBrandResponseSchema"
-]
+
+class ExceptionResponseSchema(BaseModel):
+    error: str
