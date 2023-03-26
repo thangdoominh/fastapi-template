@@ -17,7 +17,6 @@ class CarBrandService:
 
         result = await session.execute(query)
         brands: List[CarBrand] = result.scalars().all()
-        print('>>> here ', brands)
         return brands
 
     async def get_car_brand(self, car_brand_id: int) -> Optional[CarBrand]:

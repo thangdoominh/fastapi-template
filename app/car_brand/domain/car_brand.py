@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Unicode, BigInteger, Boolean, String, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Unicode, String, Integer
 
 from core.database import Base
 from core.database.bases import Timestamp
