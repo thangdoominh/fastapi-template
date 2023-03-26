@@ -15,7 +15,7 @@ class UpdateCarBrandRequestSchema(BaseModel):
     description: str = Field(..., description="Description")
 
 
-class GetCarBrandListResponseSchema(BaseModel):
+class GetCarBrandResponseSchema(BaseModel):
     id: int = Field(..., description="ID")
     name: str = Field(..., description="Name")
     logo: str = Field(..., description="Logo")

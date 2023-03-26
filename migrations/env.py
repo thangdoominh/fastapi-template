@@ -30,6 +30,7 @@ if config.config_file_name is not None:
 # For auto generate schemas
 from core.config import config
 from app.car_brand.domain import *
+from app.car_model.domain import *
 
 target_metadata = Base.metadata
 

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Unicode, String, Integer
+from sqlalchemy.orm import relationship
 
 from core.database import Base
 from core.database.bases import Timestamp
@@ -11,3 +12,5 @@ class CarBrand(Base, Timestamp):
     name = Column(Unicode(255), nullable=False, unique=True, index=True)
     logo = Column(String)
     description = Column(String)
+
+    car_models = relationship("CarModel", back_populates="car_brand")
