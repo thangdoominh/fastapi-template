@@ -59,3 +59,14 @@ async def update_car_model(car_model_id: int, request: CreateCarModelRequestSche
 async def delete_car_model(car_model_id: int):
     await CarModelService().delete_car_model(car_model_id=car_model_id)
     return Response(status_code=204)
+
+
+# TODO: get car model list by car brand name
+@car_model_router.get(
+    "/car_brand/{car_brand_name}",
+    response_model=List[GetCarModelResponseSchema],
+    responses={"400": {"model": ExceptionResponseSchema}},
+    summary="Get all car models by car brand name"
+)
+async def get_car_model_list_by_car_brand_name(car_brand_name: str):
+    return await CarModelService().get_car_model_list_by_car_brand_name(car_brand_name=car_brand_name)

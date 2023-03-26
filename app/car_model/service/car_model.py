@@ -2,6 +2,8 @@ from typing import List, Optional
 
 from sqlalchemy import select
 
+from app.car_brand.domain import CarBrand
+from app.car_brand.exception.car_brand import CarBrandNotFoundException
 from app.car_model.domain import CarModel
 from app.car_model.exception.car_model import CarModelNotFoundException, DuplicateCarModelException
 from core.database import session, Transactional
@@ -61,3 +63,15 @@ class CarModelService:
             raise CarModelNotFoundException
 
         await session.delete(model)
+
+    async def get_car_model_list_by_car_brand_name(self, car_brand_name) -> List[CarModel]:
+        query = select(CarBrand).where(CarBrand.name == car_brand_name)
+        result = await session.execute(query)
+        car_brand: CarBrand = result.scalars().first()
+        if not car_brand:
+            raise CarBrandNotFoundException
+
+        query = select(CarModel).join(CarModel.car_brand).where(CarBrand.name == car_brand_name)
+        result = await session.execute(query)
+        models: List[CarModel] = result.scalars().all()
+        return models

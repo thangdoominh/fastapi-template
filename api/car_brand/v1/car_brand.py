@@ -13,7 +13,6 @@ car_brand_router = APIRouter()
 @car_brand_router.get(
     "",
     response_model=List[GetCarBrandResponseSchema],
-    response_model_exclude={"id"},
     responses={"400": {"model": ExceptionResponseSchema}},
 )
 async def get_car_brand_list():
